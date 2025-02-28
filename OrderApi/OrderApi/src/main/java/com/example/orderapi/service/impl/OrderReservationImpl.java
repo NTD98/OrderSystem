@@ -38,6 +38,41 @@ public class OrderReservationImpl implements OrderReservation {
         }
         return order.getTraceId();
     }
+
+    @Override
+    public String tryReservation(OrderRequest order) {
+        OrderEntity orderEntity = buildCreateOrder(order);
+        orderEntity.setStatuses(Set.of(OrderStatusEntity.builder()
+                .status("TRY")
+                .order(orderEntity)
+                .build()));
+        orderRepository.save(orderEntity);
+        return orderEntity.getTraceId();
+    }
+
+    @Override
+    public String confirmReservation(OrderRequest order) {
+        OrderEntity orderEntity = buildCreateOrder(order);
+        orderEntity.setStatuses(Set.of(OrderStatusEntity.builder()
+                .status("TRY")
+                .order(orderEntity)
+                .build()));
+        orderRepository.save(orderEntity);
+        return orderEntity.getTraceId();
+    }
+
+    @Override
+    public String cancelReservation(OrderRequest order) {
+        OrderEntity orderEntity = orderRepository.findById(order.getTraceId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        orderEntity.setStatuses(Set.of(OrderStatusEntity.builder()
+                .status("CANCELED")
+                .order(orderEntity)
+                .build()));
+        orderRepository.save(orderEntity);
+        return orderEntity.getTraceId();
+    }
+
     OrderEntity buildCreateOrder(OrderRequest order){
         OrderEntity orderEntity = OrderEntity.builder()
                 .traceId(order.getTraceId())
