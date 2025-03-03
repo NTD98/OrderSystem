@@ -19,6 +19,7 @@ public class OrderEntity {
     private String traceId;
     private String customerId;
     private LocalDateTime createdDateTime;
+    private String status;
 
     @PrePersist
     void initCreatedDate(){

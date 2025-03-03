@@ -46,17 +46,23 @@ public class OrderReservationImpl implements OrderReservation {
                 .status("TRY")
                 .order(orderEntity)
                 .build()));
+        orderEntity.setStatus("TRY");
         orderRepository.save(orderEntity);
         return orderEntity.getTraceId();
     }
 
     @Override
     public String confirmReservation(OrderRequest order) {
-        OrderEntity orderEntity = buildCreateOrder(order);
+        OrderEntity orderEntity = orderRepository.findById(order.getTraceId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        if (!orderEntity.getStatus().equals("TRY")) {
+            throw new IllegalArgumentException("Order not in TRY status");
+        }
         orderEntity.setStatuses(Set.of(OrderStatusEntity.builder()
-                .status("TRY")
+                .status("CONFIRM")
                 .order(orderEntity)
                 .build()));
+        orderEntity.setStatus("CONFIRM");
         orderRepository.save(orderEntity);
         return orderEntity.getTraceId();
     }
@@ -65,10 +71,14 @@ public class OrderReservationImpl implements OrderReservation {
     public String cancelReservation(OrderRequest order) {
         OrderEntity orderEntity = orderRepository.findById(order.getTraceId())
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        if (orderEntity.getStatus().equals("CONFIRM")) {
+            throw new IllegalArgumentException("Order already confirmed");
+        }
         orderEntity.setStatuses(Set.of(OrderStatusEntity.builder()
                 .status("CANCELED")
                 .order(orderEntity)
                 .build()));
+        orderEntity.setStatus("CANCELED");
         orderRepository.save(orderEntity);
         return orderEntity.getTraceId();
     }
@@ -88,14 +98,8 @@ public class OrderReservationImpl implements OrderReservation {
                         .build())
                 .collect(Collectors.toSet());
 
-        Set<OrderStatusEntity> status = Set.of(OrderStatusEntity.builder()
-                .status("ORDER_CREATED")
-                .order(orderEntity)
-                .build());
-
         // Set the items to the order entity
         orderEntity.setItems(items);
-        orderEntity.setStatuses(status);
         return orderEntity;
     }
 }
