@@ -21,4 +21,21 @@ public class OrderController {
         var traceId = orderReservation.reservation(message);
         return "Order sent to Kafka Topic with traceId: " + traceId;
     }
+    @PostMapping("/try")
+    public String tryReservation(@RequestBody @Valid OrderRequest message) {
+        var traceId = orderReservation.tryReservation(message);
+        return "Order try reservation with traceId: " + traceId;
+    }
+
+    @PostMapping("/confirm")
+    public String confirmReservation(@RequestBody @Valid OrderRequest message) {
+        var traceId = orderReservation.confirmReservation(message);
+        return "Order confirmed with traceId: " + traceId;
+    }
+
+    @PostMapping("/cancel")
+    public String cancelReservation(@RequestBody @Valid OrderRequest message) {
+        var traceId = orderReservation.cancelReservation(message);
+        return "Order canceled with traceId: " + traceId;
+    }
 }
