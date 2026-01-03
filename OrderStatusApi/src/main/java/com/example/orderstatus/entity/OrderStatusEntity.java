@@ -1,4 +1,4 @@
-package src.main.com.example.orderstatus.entity;
+package src.main.java.com.example.orderstatus.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

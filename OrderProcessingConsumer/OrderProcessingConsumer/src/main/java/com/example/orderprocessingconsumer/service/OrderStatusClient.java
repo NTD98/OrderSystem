@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "order-status-service", url = "http://localhost:8081/orderStatus")
+@FeignClient(name = "order-status-service", url = "${app.feign.order-status-url}")
 public interface OrderStatusClient {
     @GetMapping
     ResponseEntity<String> getCurrentStatus(@RequestParam String requestTraceId);

@@ -1,0 +1,15 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: {{ .Release.Name }}-order-status-api
+#  labels:
+#    app: order-status-api
+#spec:
+#  type: {{ .Values.orderStatusApi.service.type }}
+#  ports:
+#    - port: {{ .Values.orderStatusApi.service.port }}
+#      targetPort: 8080
+#      protocol: TCP
+#      name: http
+#  selector:
+#    app: order-status-api

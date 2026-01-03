@@ -1,4 +1,4 @@
-package src.main.com.example.orderstatus;
+package src.main.java.com.example.orderstatus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

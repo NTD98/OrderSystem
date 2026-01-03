@@ -1,0 +1,34 @@
+global:
+  kafka:
+    bootstrapServers: "kafka:9092"
+    customerTopic: "order-customer"
+
+orderApi:
+  image:
+    repository: order-api
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: LoadBalancer
+    port: 8080
+  replicaCount: 1
+  resources: {}
+
+orderStatusApi:
+  image:
+    repository: order-status-api
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+  replicaCount: 1
+  resources: {}
+
+orderProcessingConsumer:
+  image:
+    repository: order-processing-consumer
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  resources: {}

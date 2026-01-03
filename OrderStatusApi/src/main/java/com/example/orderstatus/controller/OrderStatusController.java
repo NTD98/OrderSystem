@@ -1,9 +1,9 @@
-package src.main.com.example.orderstatus.controller;
+package src.main.java.com.example.orderstatus.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import src.main.com.example.orderstatus.service.OrderStatusService;
+import src.main.java.com.example.orderstatus.service.OrderStatusService;
 
 @RestController
 @RequestMapping("${app.api.version}/order")

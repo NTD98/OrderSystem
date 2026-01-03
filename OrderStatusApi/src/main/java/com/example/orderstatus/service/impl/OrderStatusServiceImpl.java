@@ -1,11 +1,11 @@
-package src.main.com.example.orderstatus.service.impl;
+package src.main.java.com.example.orderstatus.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import src.main.com.example.orderstatus.entity.OrderStatusEntity;
-import src.main.com.example.orderstatus.exception.InvalidRequestException;
-import src.main.com.example.orderstatus.repository.OrderStatusRepository;
-import src.main.com.example.orderstatus.service.OrderStatusService;
+import src.main.java.com.example.orderstatus.entity.OrderStatusEntity;
+import src.main.java.com.example.orderstatus.exception.InvalidRequestException;
+import src.main.java.com.example.orderstatus.repository.OrderStatusRepository;
+import src.main.java.com.example.orderstatus.service.OrderStatusService;
 
 @Service
 @AllArgsConstructor

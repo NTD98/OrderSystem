@@ -1,4 +1,4 @@
-package src.main.com.example.orderstatus.service;
+package src.main.java.com.example.orderstatus.service;
 
 public interface OrderStatusService {
     void createStatus(String requestTraceId,String status);

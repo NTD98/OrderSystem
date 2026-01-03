@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-order-processing-consumer
+  labels:
+    app: order-processing-consumer
+spec:
+  replicas: {{ .Values.orderProcessingConsumer.replicaCount }}
+  selector:
+    matchLabels:
+      app: order-processing-consumer
+  template:
+    metadata:
+      labels:
+        app: order-processing-consumer
+    spec:
+      containers:
+        - name: order-processing-consumer
+          image: "{{ .Values.orderProcessingConsumer.image.repository }}:{{ .Values.orderProcessingConsumer.image.tag }}"
+          imagePullPolicy: {{ .Values.orderProcessingConsumer.image.pullPolicy }}
+          env:
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: {{ .Values.global.kafka.bootstrapServers }}
+            - name: APP_KAFKA_CUSTOMER_TOPIC
+              value: {{ .Values.global.kafka.customerTopic }}
+            - name: APP_FEIGN_ORDER_STATUS_URL
+              value: "http://{{ .Release.Name }}-order-status-api:8080/orderStatus"
+            - name: APP_FEIGN_ITEM_SERVICE_URL
+              value: "http://item-service:8081/item"
+          resources:
+            {{- toYaml .Values.orderProcessingConsumer.resources | nindent 12 }}
