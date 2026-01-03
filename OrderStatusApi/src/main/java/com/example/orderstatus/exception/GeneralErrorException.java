@@ -1,4 +1,4 @@
-package src.main.com.example.orderstatus.exception;
+package src.main.java.com.example.orderstatus.exception;
 
 public class GeneralErrorException extends RuntimeException{
     public GeneralErrorException(String message){

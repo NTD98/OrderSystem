@@ -8,7 +8,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "item-service", url = "http://localhost:8081/item")
+@FeignClient(name = "item-service", url = "${app.feign.item-service-url}")
 public interface ItemServiceClient {
     @PostMapping("/try")
     ResponseEntity<String> tryLock(@RequestParam String requestTraceId,@RequestParam String listItemLock);

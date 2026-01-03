@@ -2,7 +2,7 @@ spring:
     application:
         name: OrderProcessingConsumer
     datasource:
-        url: jdbc:h2:file:/data/demo
+        url: jdbc:h2:file:./data/demo
         driver-class-name: org.h2.Driver
         username: sa
         password: password
@@ -29,6 +29,9 @@ app:
         retry:
             max-attempts: 3
             max-delay: 2000
+    feign:
+        order-status-url: http://localhost:8081/orderStatus
+        item-service-url: http://localhost:8081/item
 server:
     servlet:
         context-path: /api
